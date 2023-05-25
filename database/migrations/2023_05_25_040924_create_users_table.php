@@ -13,11 +13,16 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('pegawai_id');
             $table->string('name');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
+            $table->integer('status')->default('0')->comment('1=not_active,0=active');
+            $table->tinyInteger('role_as')->default('0')->comment('0=user,1=admin');
+            
+            $table->foreign('pegawai_id')->references('id')->on('tm_pegawais')->onDelete('cascade');
             $table->timestamps();
         });
     }
