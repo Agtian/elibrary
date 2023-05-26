@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\Dashboard\User;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,9 +16,20 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
 });
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [HomeController::class, 'index'])->name('home');
+
+Route::prefix('dashboard')->middleware(['auth', 'isAdmin'])->group(function () {
+
+    Route::controller(User::class)->group(function () {
+        Route::get('/user', 'index');
+        Route::get('/user/create', 'create');
+        Route::post('/user', 'store');
+        Route::get('/user/{user}/edit', 'edit');
+        Route::put('/user/{user}', 'update');
+    });
+});

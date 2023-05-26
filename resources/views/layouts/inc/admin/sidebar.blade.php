@@ -114,13 +114,13 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="../examples/profile.html" class="nav-link">
+                            <a href="{{ url('dashboard/user/create') }}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Add User</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="../examples/invoice.html" class="nav-link">
+                            <a href="{{ url('dashboard/user') }}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Data User</p>
                             </a>
@@ -131,7 +131,7 @@
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-users"></i>
                         <p>
-                            Employes
+                            Employees
                             <i class="fas fa-angle-left right"></i>
                         </p>
                     </a>
@@ -245,12 +245,17 @@
 
                 <br>
                 <li class="nav-item">
-                    <a href="" class="nav-link">
+                    <a href="{{ route('logout') }}" class="nav-link"
+                        onclick="event.preventDefault();
+                    document.getElementById('logout-form').submit();">
                         <i class="nav-icon fas fa-window-close"></i>
                         <p>
-                            Logout
+                            {{ __('Logout') }}
                         </p>
                     </a>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                        @csrf
+                    </form>
                 </li>
             </ul>
         </nav>
