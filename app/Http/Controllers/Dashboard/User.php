@@ -18,4 +18,10 @@ class User extends Controller
     {
         return view('dashboard.user.create');
     }
+
+    public function edit(int $product_id)
+    {
+        $users = ModelsUser::findOrFail($product_id);
+        return view('dashboard.user.edit', compact('users'));
+    }
 }
